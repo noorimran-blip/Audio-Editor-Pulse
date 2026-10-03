@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <!-- SEO essentials -->
+  <title>Audio Editor Pulse — Free Online Audio Editor, Cutter, Merger & Recorder</title>
+  <meta name="description" content="Audio Editor Pulse is a free online audio editor with waveform trimming, merging, volume boost, speed changer, equalizer, and voice recorder. Process audio locally in your browser.">
+  <meta name="keywords" content="Audio Editor Pulse, online audio editor, audio editor online, MP3 cutter, audio cutter online, audio trimmer, audio merger, audio converter, volume booster, online audio recorder, free audio editor">
+  <meta name="author" content="Audio Editor Pulse">
+  <link rel="canonical" href="https://www.audioeditorpulse.com/">
+  <!-- Open Graph -->
+  <meta property="og:title" content="Audio Editor Pulse — Free Online Audio Editor">
+  <meta property="og:description" content="Edit, cut, merge, convert, record and enhance audio directly in your browser. Fast, private, and free.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.audioeditorpulse.com/">
+  <meta property="og:image" content="https://www.audioeditorpulse.com/og-waveform.jpg">
+  <meta property="og:site_name" content="Audio Editor Pulse">
+  <!-- Twitter/X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Audio Editor Pulse — Free Online Audio Editor">
+  <meta name="twitter:description" content="Trim, merge, boost, convert, and record audio with a fast browser-based editor.">
+  <meta name="twitter:image" content="https://www.audioeditorpulse.com/twitter-waveform.jpg">
+  <!-- Fonts and minimal style reset -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    /* ---------- CSS Reset & Variables ---------- */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --surface-alt: #f1f5f9;
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --primary-light: #dbeafe;
+      --text: #0f172a;
+      --text-muted: #475569;
+      --border: #e2e8f0;
+      --waveform: #3b82f6;
+      --waveform-light: #93c5fd;
+      --danger: #dc2626;
+      --success: #16a34a;
+      --radius: 16px;
+      --radius-sm: 10px;
+      --shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+      --shadow-hover: 0 12px 40px rgba(37, 99, 235, 0.12);
+      --font: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      padding: 0 12px;
+    }
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+    /* ---------- Header & Navigation ---------- */
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(8px);
+      background: rgba(255, 255, 255, 0.92);
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding: 12px 0;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 1.4rem;
+      letter-spacing: -0.02em;
+      color: var(--primary);
+      text-decoration: none;
+    }
+    .logo svg {
+      width: 32px;
+      height: 32px;
+    }
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: center;
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-muted);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      color: var(--primary);
+      outline: 2px solid var(--primary);
+      outline-offset: 4px;
+      border-radius: 4px;
+    }
+    /* ---------- Hero & Layout ---------- */
+    .hero {
+      padding: 32px 0 16px;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      color: var(--text);
+      max-width: 800px;
+      margin: 0 auto 12px;
+    }
+    .hero p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .privacy-note {
+      background: var(--primary-light);
+      color: #1e3a8a;
+      padding: 10px 16px;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      display: inline-block;
+      margin: 16px auto 0;
+    }
+    /* ---------- Ad containers ---------- */
+    .ad-banner {
+      background: var(--surface-alt);
+      border: 1px dashed var(--border);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin: 20px 0;
+      width: 100%;
+      min-height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ad-banner small {
+      display: block;
+      opacity: 0.8;
+    }
+    .sidebar-ad {
+      background: var(--surface-alt);
+      border: 1px dashed var(--border);
+      border-radius: var(--radius-sm);
+      padding: 20px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      min-height: 250px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    /* ---------- Grid & Cards ---------- */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 28px;
+      margin: 28px 0;
+    }
+    @media (max-width: 900px) {
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .main-editor {
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 24px;
+      border: 1px solid var(--border);
+    }
+    .tool-section {
+      margin-bottom: 32px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .tool-section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text);
+    }
+    .section-title svg {
+      width: 22px;
+      height: 22px;
+      color: var(--primary);
+    }
+    /* Upload area */
+    .upload-area {
+      border: 2px dashed var(--border);
+      border-radius: var(--radius-sm);
+      padding: 32px 16px;
+      text-align: center;
+      background: var(--surface-alt);
+      transition: border-color 0.2s, background 0.2s;
+      cursor: pointer;
+      margin-bottom: 16px;
+      touch-action: manipulation;
+    }
+    .upload-area:hover,
+    .upload-area:focus-visible {
+      border-color: var(--primary);
+      background: var(--primary-light);
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+    }
+    .upload-area p {
+      font-weight: 500;
+      margin: 8px 0;
+    }
+    .upload-btn {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      touch-action: manipulation;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+    }
+    .upload-btn:hover,
+    .upload-btn:focus-visible {
+      background: var(--primary-dark);
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+    }
+    .file-info {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 12px;
+    }
+    /* Waveform & timeline */
+    .waveform-container {
+      background: var(--surface-alt);
+      border-radius: var(--radius-sm);
+      padding: 12px;
+      margin: 12px 0;
+      position: relative;
+    }
+    canvas.waveform {
+      width: 100%;
+      height: 140px;
+      display: block;
+      background: var(--surface);
+      border-radius: 8px;
+      cursor: pointer;
+      touch-action: none;
+    }
+    .timeline-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      margin-top: 10px;
+      font-size: 0.85rem;
+    }
+    .control-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .control-group label {
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+    input[type="range"] {
+      accent-color: var(--primary);
+      width: 120px;
+      height: 6px;
+      border-radius: 3px;
+    }
+    button.icon-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 40px;
+      padding: 8px 12px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+      touch-action: manipulation;
+      color: var(--text);
+    }
+    button.icon-btn:hover,
+    button.icon-btn:focus-visible {
+      background: var(--primary-light);
+      border-color: var(--primary);
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+    }
+    button.primary-btn {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      touch-action: manipulation;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+    }
+    button.primary-btn:hover,
+    button.primary-btn:focus-visible {
+      background: var(--primary-dark);
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+    }
+    button.primary-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+    button.danger-btn {
+      background: #fee2e2;
+      color: var(--danger);
+      border: 1px solid #fecaca;
+    }
+    button.danger-btn:hover {
+      background: #fecaca;
+    }
+    /* Tool cards */
+    .tool-card {
+      background: var(--surface-alt);
+      border-radius: var(--radius-sm);
+      padding: 18px;
+      margin-bottom: 16px;
+      border: 1px solid var(--border);
+    }
+    .tool-card h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .flex-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+    .grid-2col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+    }
+    select, input[type="number"], input[type="text"] {
+      font-family: inherit;
+      padding: 8px 12px;
+      border-radius: 40px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      font-size: 0.9rem;
+      width: 100%;
+      max-width: 200px;
+      color: var(--text);
+    }
+    select:focus, input:focus {
+      outline: 2px solid var(--primary);
+      outline-offset: 1px;
+    }
+    .file-list {
+      list-style: none;
+      margin: 10px 0;
+    }
+    .file-list li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+      background: var(--surface);
+      border-radius: 40px;
+      margin-bottom: 6px;
+      border: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+    .file-list li button {
+      background: none;
+      border: none;
+      color: var(--danger);
+      font-weight: 700;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 20px;
+    }
+    .file-list li button:hover {
+      background: #fee2e2;
+    }
+    /* Equalizer sliders */
+    .eq-slider {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .eq-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .eq-row label {
+      width: 60px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+    /* Sidebar */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    /* FAQ */
+    .faq-section {
+      margin: 40px 0;
+    }
+    .faq-item {
+      background: var(--surface);
+      border-radius: var(--radius-sm);
+      padding: 16px 20px;
+      margin-bottom: 10px;
+      border: 1px solid var(--border);
+    }
+    .faq-item summary {
+      font-weight: 600;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+    }
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+    .faq-item summary::after {
+      content: "+";
+      font-weight: 400;
+      color: var(--primary);
+    }
+    .faq-item[open] summary::after {
+      content: "−";
+    }
+    .faq-item p {
+      margin-top: 10px;
+      color: var(--text-muted);
+    }
+    /* Footer */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 32px 0 24px;
+      margin-top: 40px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 28px;
+    }
+    .footer-col h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+    .footer-col a {
+      display: block;
+      text-decoration: none;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+    }
+    .footer-col a:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+    .copyright {
+      margin-top: 32px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+    /* Utility */
+    .text-muted { color: var(--text-muted); }
+    .mt-2 { margin-top: 8px; }
+    .mb-2 { margin-bottom: 8px; }
+    .hidden { display: none; }
+    .progress-bar {
+      height: 6px;
+      background: var(--border);
+      border-radius: 3px;
+      overflow: hidden;
+      margin: 12px 0;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--primary);
+      transition: width 0.2s;
+    }
+    .status-msg {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      min-height: 1.2em;
+    }
+    .status-msg.error { color: var(--danger); }
+    .status-msg.success { color: var(--success); }
+
+    /* accessibility & responsive */
+    @media (max-width: 600px) {
+      .header-inner { flex-direction: column; align-items: flex-start; }
+      .nav-links { gap: 12px; font-size: 0.85rem; }
+      .main-editor { padding: 16px; }
+      button.primary-btn, button.icon-btn { width: 100%; justify-content: center; }
+      .flex-row { flex-direction: column; align-items: stretch; }
+      .control-group { flex-wrap: wrap; }
+      input[type="range"] { width: 100%; }
+    }
+    :focus-visible {
+      outline: 3px solid var(--primary) !important;
+      outline-offset: 3px !important;
+    }
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      border: 0;
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+    <div class="container header-inner">
+      <a href="/" class="logo" aria-label="Audio Editor Pulse home">
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="2" y="12" width="4" height="8" rx="1" fill="currentColor" opacity="0.7"/>
+          <rect x="8" y="6" width="4" height="20" rx="1" fill="currentColor"/>
+          <rect x="14" y="2" width="4" height="28" rx="1" fill="currentColor"/>
+          <rect x="20" y="8" width="4" height="16" rx="1" fill="currentColor"/>
+          <rect x="26" y="14" width="4" height="4" rx="1" fill="currentColor" opacity="0.7"/>
+        </svg>
+        Audio Editor Pulse
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#editor">Editor</a>
+        <a href="#tools">Tools</a>
+        <a href="#faq">FAQ</a>
+        <a href="#privacy">Privacy</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- TOP AD -->
+    <div class="ad-banner" aria-label="Advertisement">
+      <!-- Google AdSense: replace with your ad unit -->
+      <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-YOUR_ADSENSE_PUBLISHER_ID" data-ad-slot="YOUR_AD_UNIT_ID"></ins> -->
+      <div>Advertisement · Top banner <small>Replace with AdSense code: YOUR_ADSENSE_PUBLISHER_ID / YOUR_AD_UNIT_ID</small></div>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero">
+      <h1>Audio Editor Pulse — Free Online Audio Editor</h1>
+      <p>Trim, merge, convert, record, and enhance audio directly in your browser. No uploads, no sign-up.</p>
+      <div class="privacy-note" id="privacy">
+        🔒 Your audio is processed locally in your browser whenever possible.
+      </div>
+    </section>
+
+    <!-- DASHBOARD GRID (editor + sidebar) -->
+    <div class="dashboard-grid">
+      <!-- MAIN EDITOR COLUMN -->
+      <div class="main-editor" id="editor">
+        <!-- Upload area -->
+        <div class="tool-section">
+          <h2 class="section-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            Upload Audio
+          </h2>
+          <div class="upload-area" id="dropZone" tabindex="0" role="button" aria-label="Drag and drop audio file or click to choose">
+            <p>Drag &amp; Drop Your Audio Here</p>
+            <p class="text-muted" style="font-size:0.9rem;">MP3, WAV, OGG, M4A, AAC (max 60MB)</p>
+            <button class="upload-btn" id="chooseFileBtn" type="button">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              Choose Audio File
+            </button>
+            <input type="file" id="fileInput" accept="audio/*" class="sr-only" aria-label="Choose audio file">
+          </div>
+          <div class="file-info" id="fileInfo"></div>
+          <div class="status-msg" id="uploadStatus"></div>
+        </div>
+
+        <!-- Waveform editor -->
+        <div class="tool-section" id="waveformSection">
+          <h2 class="section-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h4l2-9 4 18 4-18 2 9h4"/></svg>
+            Waveform Editor
+          </h2>
+          <div class="waveform-container">
+            <canvas class="waveform" id="waveformCanvas" aria-label="Audio waveform display"></canvas>
+            <div class="timeline-controls">
+              <div class="control-group">
+                <button class="icon-btn" id="playPauseBtn" aria-label="Play or pause">▶️</button>
+                <button class="icon-btn" id="stopBtn" aria-label="Stop">⏹️</button>
+                <span id="timeDisplay" class="text-muted" style="font-size:0.9rem;">0:00 / 0:00</span>
+              </div>
+              <div class="control-group">
+                <label for="zoomRange">Zoom</label>
+                <input type="range" id="zoomRange" min="1" max="10" value="1" step="0.5" aria-label="Zoom level">
+              </div>
+              <div class="control-group">
+                <label for="selectionStart">Start</label>
+                <input type="number" id="selectionStart" step="0.01" min="0" value="0" style="width:80px;" aria-label="Selection start time">
+                <label for="selectionEnd">End</label>
+                <input type="number" id="selectionEnd" step="0.01" min="0" value="0" style="width:80px;" aria-label="Selection end time">
+                <button class="icon-btn" id="applySelectionBtn" aria-label="Apply selection">✂️ Select</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CUTTER / TRIMMER -->
+        <div class="tool-section">
+          <h2 class="section-title">✂️ Audio Cutter / Trimmer</h2>
+          <div class="flex-row">
+            <button class="primary-btn" id="trimBtn">Trim &amp; Export Selection</button>
+            <button class="icon-btn" id="previewSelectionBtn">🔊 Preview Selection</button>
+          </div>
+          <div class="status-msg" id="trimStatus"></div>
+        </div>
+
+        <!-- AD BETWEEN TOOLS -->
+        <div class="ad-banner" aria-label="Advertisement">
+          <div>Advertisement · Between tools <small>Replace with AdSense code</small></div>
+        </div>
+
+        <!-- MERGER -->
+        <div class="tool-section">
+          <h2 class="section-title">🔗 Audio Merger</h2>
+          <div class="upload-area" id="mergeDropZone" style="padding:20px;">
+            <p>Drop multiple audio files or click to add</p>
+            <button class="upload-btn" id="mergeChooseBtn" type="button">Add Files</button>
+            <input type="file" id="mergeFileInput" accept="audio/*" multiple class="sr-only">
+          </div>
+          <ul class="file-list" id="mergeList"></ul>
+          <div class="flex-row">
+            <button class="primary-btn" id="mergeBtn">Merge &amp; Export</button>
+            <button class="icon-btn" id="previewMergeBtn">🔊 Preview Merged</button>
+          </div>
+          <div class="status-msg" id="mergeStatus"></div>
+        </div>
+
+        <!-- CONVERTER -->
+        <div class="tool-section">
+          <h2 class="section-title">🔄 Audio Converter</h2>
+          <div class="flex-row">
+            <label for="convertFormat">Convert to:</label>
+            <select id="convertFormat">
+              <option value="wav">WAV</option>
+              <option value="mp3">MP3 (via MediaRecorder)</option>
+              <option value="ogg">OGG (via MediaRecorder)</option>
+            </select>
+            <button class="primary-btn" id="convertBtn">Convert</button>
+          </div>
+          <div class="progress-bar"><div class="progress-fill" id="convertProgress"></div></div>
+          <div class="status-msg" id="convertStatus"></div>
+          <button class="icon-btn hidden" id="downloadConvertedBtn">⬇️ Download Converted</button>
+        </div>
+
+        <!-- VOLUME BOOSTER -->
+        <div class="tool-section">
+          <h2 class="section-title">🔊 Volume Booster</h2>
+          <div class="flex-row">
+            <label for="volumeBoost">Volume: <span id="volumeValue">100%</span></label>
+            <input type="range" id="volumeBoost" min="0.5" max="3" value="1" step="0.05">
+            <button class="primary-btn" id="applyVolumeBtn">Apply &amp; Preview</button>
+          </div>
+          <p class="text-muted" style="font-size:0.8rem;">⚠️ Excessive amplification may cause distortion.</p>
+        </div>
+
+        <!-- SPEED CHANGER -->
+        <div class="tool-section">
+          <h2 class="section-title">⏩ Speed Changer</h2>
+          <div class="flex-row">
+            <select id="speedSelect">
+              <option value="0.5">0.5x</option>
+              <option value="0.75">0.75x</option>
+              <option value="1" selected>1x</option>
+              <option value="1.25">1.25x</option>
+              <option value="1.5">1.5x</option>
+              <option value="2">2x</option>
+            </select>
+            <button class="primary-btn" id="applySpeedBtn">Apply Speed</button>
+          </div>
+        </div>
+
+        <!-- FADE EFFECTS -->
+        <div class="tool-section">
+          <h2 class="section-title">📉 Fade Effects</h2>
+          <div class="flex-row">
+            <label for="fadeDuration">Duration (s):</label>
+            <input type="number" id="fadeDuration" value="1" min="0.1" max="10" step="0.1" style="width:80px;">
+            <button class="icon-btn" id="fadeInBtn">Fade In</button>
+            <button class="icon-btn" id="fadeOutBtn">Fade Out</button>
+            <button class="primary-btn" id="applyFadeBtn">Apply Fade</button>
+          </div>
+        </div>
+
+        <!-- EQUALIZER -->
+        <div class="tool-section">
+          <h2 class="section-title">🎛️ Equalizer</h2>
+          <div class="eq-slider">
+            <div class="eq-row"><label for="eqBass">Bass</label><input type="range" id="eqBass" min="-12" max="12" value="0" step="0.5"></div>
+            <div class="eq-row"><label for="eqMid">Mid</label><input type="range" id="eqMid" min="-12" max="12" value="0" step="0.5"></div>
+            <div class="eq-row"><label for="eqTreble">Treble</label><input type="range" id="eqTreble" min="-12" max="12" value="0" step="0.5"></div>
+            <div class="eq-row"><label for="eqVolume">Volume</label><input type="range" id="eqVolume" min="0" max="2" value="1" step="0.05"></div>
+          </div>
+          <div class="flex-row mt-2">
+            <label for="eqPreset">Preset:</label>
+            <select id="eqPreset">
+              <option value="normal">Normal</option>
+              <option value="voice">Voice</option>
+              <option value="music">Music</option>
+              <option value="podcast">Podcast</option>
+              <option value="bassboost">Bass Boost</option>
+            </select>
+            <button class="primary-btn" id="applyEqBtn">Apply EQ</button>
+          </div>
+        </div>
+
+        <!-- AUDIO EFFECTS -->
+        <div class="tool-section">
+          <h2 class="section-title">🎚️ Audio Effects</h2>
+          <div class="flex-row">
+            <button class="icon-btn" id="effectEcho">Echo</button>
+            <button class="icon-btn" id="effectReverb">Reverb</button>
+            <button class="icon-btn" id="effectBassBoost">Bass Boost</button>
+            <button class="icon-btn" id="effectVoice">Voice Enhancement</button>
+          </div>
+          <p class="text-muted" style="font-size:0.8rem;">Effects are applied to the current selection or full audio. Preview after applying.</p>
+        </div>
+
+        <!-- RECORDER -->
+        <div class="tool-section">
+          <h2 class="section-title">🎙️ Audio Recorder</h2>
+          <div class="flex-row">
+            <button class="primary-btn" id="recordBtn">● Record</button>
+            <button class="icon-btn" id="pauseRecordBtn" disabled>⏸️ Pause</button>
+            <button class="icon-btn" id="stopRecordBtn" disabled>⏹️ Stop</button>
+            <button class="icon-btn" id="deleteRecordBtn" disabled>🗑️ Delete</button>
+          </div>
+          <audio id="recordingPreview" controls class="hidden" style="width:100%; margin-top:12px;"></audio>
+          <div class="status-msg" id="recordStatus"></div>
+        </div>
+
+        <!-- EXPORT -->
+        <div class="tool-section">
+          <h2 class="section-title">📤 Export</h2>
+          <div class="flex-row">
+            <button class="primary-btn" id="exportBtn">Export Audio</button>
+            <button class="primary-btn" id="downloadBtn" disabled>Download Audio</button>
+          </div>
+          <div class="status-msg" id="exportStatus"></div>
+        </div>
+      </div>
+
+      <!-- SIDEBAR AD -->
+      <aside class="sidebar">
+        <div class="sidebar-ad" aria-label="Advertisement">
+          <div>Desktop sidebar advertisement</div>
+          <small>Replace with AdSense: YOUR_ADSENSE_PUBLISHER_ID / YOUR_AD_UNIT_ID</small>
+        </div>
+        <!-- Additional tool cards could go here, but sidebar is mainly ad -->
+        <div class="tool-card">
+          <h3>⚡ Quick Tips</h3>
+          <p class="text-muted" style="font-size:0.9rem;">Use the waveform to select a region, then trim, fade, or apply effects. All processing stays in your browser.</p>
+        </div>
+      </aside>
+    </div>
+
+    <!-- FAQ -->
+    <section class="faq-section" id="faq">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <
